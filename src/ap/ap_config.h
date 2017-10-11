@@ -568,6 +568,7 @@ struct hostapd_bss_config {
 	int sae_require_mfp;
 	int *sae_groups;
 	struct sae_password_entry *sae_passwords;
+	char *sae_password;
 
 	char *wowlan_triggers; /* Wake-on-WLAN triggers */
 

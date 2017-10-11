@@ -346,6 +346,7 @@ static struct wpabuf * auth_build_sae_commit(struct hostapd_data *hapd,
 					     struct sta_info *sta, int update)
 {
 	struct wpabuf *buf;
+	const char *password;
 
 	const char *password = NULL;
 	struct sae_password_entry *pw;
@@ -366,6 +367,7 @@ static struct wpabuf * auth_build_sae_commit(struct hostapd_data *hapd,
 		password = pw->password;
 		break;
 	}
+
 	if (!password)
 		password = hapd->conf->ssid.wpa_passphrase;
 	if (!password) {

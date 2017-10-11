@@ -598,6 +598,8 @@ void hostapd_config_free_bss(struct hostapd_bss_config *conf)
 
 	hostapd_config_free_sae_passwords(conf);
 
+	os_free(conf->sae_password);
+
 	os_free(conf);
 }
 
