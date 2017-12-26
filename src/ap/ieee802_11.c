@@ -332,9 +332,6 @@ static void handle_auth_ft_finish(void *ctx, const u8 *dst, const u8 *bssid,
 
 #ifdef CONFIG_SAE
 
-#define dot11RSNASAESync 5		/* attempts */
-
-
 static struct wpabuf * auth_build_sae_commit(struct hostapd_data *hapd,
 					     struct sta_info *sta, int update)
 {
@@ -492,9 +489,9 @@ static struct wpabuf * auth_build_token_req(struct hostapd_data *hapd,
 }
 
 
-static int sae_check_big_sync(struct sta_info *sta)
+static int sae_check_big_sync(struct hostapd_data *hapd, struct sta_info *sta)
 {
-	if (sta->sae->sync > dot11RSNASAESync) {
+	if (sta->sae->sync > hapd->conf->sae_sync) {
 		sta->sae->state = SAE_NOTHING;
 		sta->sae->sync = 0;
 		return -1;
@@ -509,7 +506,7 @@ static void auth_sae_retransmit_timer(void *eloop_ctx, void *eloop_data)
 	struct sta_info *sta = eloop_data;
 	int ret;
 
-	if (sae_check_big_sync(sta))
+	if (sae_check_big_sync(hapd, sta))
 		return;
 	sta->sae->sync++;
 
@@ -639,7 +636,7 @@ static int sae_sm_step(struct hostapd_data *hapd, struct sta_info *sta,
 			 * In mesh case, follow SAE finite state machine and
 			 * send Commit now, if sync count allows.
 			 */
-			if (sae_check_big_sync(sta))
+			if (sae_check_big_sync(hapd, sta))
 				return WLAN_STATUS_SUCCESS;
 			sta->sae->sync++;
 
@@ -671,7 +668,7 @@ static int sae_sm_step(struct hostapd_data *hapd, struct sta_info *sta,
 	case SAE_CONFIRMED:
 		sae_clear_retransmit_timer(hapd, sta);
 		if (auth_transaction == 1) {
-			if (sae_check_big_sync(sta))
+			if (sae_check_big_sync(hapd, sta))
 				return WLAN_STATUS_SUCCESS;
 			sta->sae->sync++;
 
@@ -699,7 +696,7 @@ static int sae_sm_step(struct hostapd_data *hapd, struct sta_info *sta,
 			ap_free_sta(hapd, sta);
 			wpa_auth_pmksa_remove(hapd->wpa_auth, sta->addr);
 		} else {
-			if (sae_check_big_sync(sta))
+			if (sae_check_big_sync(hapd, sta))
 				return WLAN_STATUS_SUCCESS;
 			sta->sae->sync++;
 
