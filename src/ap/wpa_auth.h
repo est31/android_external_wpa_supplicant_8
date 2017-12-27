@@ -155,6 +155,7 @@ struct wpa_auth_config {
 #ifdef CONFIG_IEEE80211W
 	enum mfp_options ieee80211w;
 	int group_mgmt_cipher;
+	int sae_require_mfp;
 #endif /* CONFIG_IEEE80211W */
 #ifdef CONFIG_IEEE80211R
 	u8 ssid[SSID_MAX_LEN];

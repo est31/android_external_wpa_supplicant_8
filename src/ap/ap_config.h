@@ -559,6 +559,7 @@ struct hostapd_bss_config {
 
 	unsigned int sae_anti_clogging_threshold;
 	unsigned int sae_sync;
+	int sae_require_mfp;
 	int *sae_groups;
 
 	char *wowlan_triggers; /* Wake-on-WLAN triggers */
