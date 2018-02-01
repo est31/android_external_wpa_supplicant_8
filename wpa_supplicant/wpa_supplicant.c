@@ -2241,6 +2241,11 @@ static void wpas_start_assoc_cb(struct wpa_radio_work *work, int deinit)
 		wpa_s->wpa_proto = 0;
 	}
 
+#ifdef CONFIG_SAE
+	if (wpa_s->key_mgmt & (WPA_KEY_MGMT_SAE | WPA_KEY_MGMT_FT_SAE))
+		algs = WPA_AUTH_ALG_SAE;
+#endif /* CONFIG_SAE */
+
 #ifdef CONFIG_P2P
 	if (wpa_s->global->p2p) {
 		u8 *pos;

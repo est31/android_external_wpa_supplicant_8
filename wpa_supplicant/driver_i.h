@@ -968,4 +968,14 @@ static inline int wpa_drv_set_tdls_mode(struct wpa_supplicant *wpa_s,
 					    tdls_external_control);
 }
 
+static inline int
+wpa_drv_send_external_auth_status(struct wpa_supplicant *wpa_s,
+				  struct external_auth *params)
+{
+	if (!wpa_s->driver->send_external_auth_status)
+		return -1;
+	return wpa_s->driver->send_external_auth_status(wpa_s->drv_priv,
+							params);
+}
+
 #endif /* DRIVER_I_H */
