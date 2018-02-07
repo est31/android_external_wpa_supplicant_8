@@ -731,6 +731,15 @@ int wpa_validate_wpa_ie(struct wpa_authenticator *wpa_auth,
 		os_memcpy(wpa_auth->dot11RSNAPMKIDUsed, pmkid, PMKID_LEN);
 	}
 
+#ifdef CONFIG_SAE
+	if (sm->wpa_key_mgmt == WPA_KEY_MGMT_SAE && data.num_pmkid &&
+	    !sm->pmksa) {
+		wpa_auth_vlogger(wpa_auth, sm->addr, LOGGER_DEBUG,
+				 "No PMKSA cache entry found for SAE");
+		return WPA_INVALID_PMKID;
+	}
+#endif /* CONFIG_SAE */
+
 	if (sm->wpa_ie == NULL || sm->wpa_ie_len < wpa_ie_len) {
 		os_free(sm->wpa_ie);
 		sm->wpa_ie = os_malloc(wpa_ie_len);
