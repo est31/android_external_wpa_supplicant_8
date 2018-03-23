@@ -238,12 +238,12 @@ int wpa_pmk_to_ptk(const u8 *pmk, size_t pmk_len, const char *label,
 			   tmp, ptk_len);
 	else
 #endif /* CONFIG_SUITEB192 */
-#ifdef CONFIG_IEEE80211W
+#if defined(CONFIG_IEEE80211W) || defined(CONFIG_SAE)
 	if (wpa_key_mgmt_sha256(akmp))
 		sha256_prf(pmk, pmk_len, label, data, sizeof(data),
 			   tmp, ptk_len);
 	else
-#endif /* CONFIG_IEEE80211W */
+#endif /* CONFIG_IEEE80211W or CONFIG_SAE */
 		sha1_prf(pmk, pmk_len, label, data, sizeof(data), tmp, ptk_len);
 
 	wpa_printf(MSG_DEBUG, "WPA: PTK derivation - A1=" MACSTR " A2=" MACSTR,
