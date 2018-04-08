@@ -344,7 +344,7 @@ int main(int argc, char *argv[])
 	if (preauth_test.auth_timed_out)
 		ret = -2;
 	else {
-		ret = pmksa_cache_set_current(wpa_s.wpa, NULL, bssid, NULL, 0)
+		ret = pmksa_cache_set_current(wpa_s.wpa, NULL, bssid, NULL, 0, 0)
 			? 0 : -3;
 	}
 
