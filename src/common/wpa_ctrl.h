@@ -76,6 +76,9 @@ extern "C" {
 #define WPA_EVENT_SIGNAL_CHANGE "CTRL-EVENT-SIGNAL-CHANGE "
 /** Regulatory domain channel */
 #define WPA_EVENT_REGDOM_CHANGE "CTRL-EVENT-REGDOM-CHANGE "
+/** SAE authentication failed due to unknown password identifier */
+#define WPA_EVENT_SAE_UNKNOWN_PASSWORD_IDENTIFIER \
+	"CTRL-EVENT-SAE-UNKNOWN-PASSWORD-IDENTIFIER "
 
 /** IP subnet status change notification
  *

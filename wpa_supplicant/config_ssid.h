@@ -170,6 +170,24 @@ struct wpa_ssid {
 	char *passphrase;
 
 	/**
+	 * sae_password - SAE password
+	 *
+	 * This parameter can be used to set a password for SAE. By default, the
+	 * passphrase value is used if this separate parameter is not used, but
+	 * passphrase follows the WPA-PSK constraints (8..63 characters) even
+	 * though SAE passwords do not have such constraints.
+	 */
+	char *sae_password;
+
+	/**
+	 * sae_password_id - SAE password identifier
+	 *
+	 * This parameter can be used to identify a specific SAE password. If
+	 * not included, the default SAE password is used instead.
+	 */
+	char *sae_password_id;
+
+	/**
 	 * ext_psk - PSK/passphrase name in external storage
 	 *
 	 * If this is set, PSK/passphrase will be fetched from external storage

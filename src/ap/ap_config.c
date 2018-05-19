@@ -420,6 +420,20 @@ static void hostapd_config_free_anqp_elem(struct hostapd_bss_config *conf)
 	}
 }
 
+static void hostapd_config_free_sae_passwords(struct hostapd_bss_config *conf)
+{
+	struct sae_password_entry *pw, *tmp;
+
+	pw = conf->sae_passwords;
+	conf->sae_passwords = NULL;
+	while (pw) {
+		tmp = pw;
+		pw = pw->next;
+		str_clear_free(tmp->password);
+		os_free(tmp->identifier);
+		os_free(tmp);
+	}
+}
 
 void hostapd_config_free_bss(struct hostapd_bss_config *conf)
 {
@@ -581,6 +595,8 @@ void hostapd_config_free_bss(struct hostapd_bss_config *conf)
 
 	os_free(conf->no_probe_resp_if_seen_on);
 	os_free(conf->no_auth_if_seen_on);
+
+	hostapd_config_free_sae_passwords(conf);
 
 	os_free(conf);
 }

@@ -178,7 +178,6 @@ static int ieee802_11_parse_vendor_specific(const u8 *pos, size_t elen,
 	return 0;
 }
 
-
 /**
  * ieee802_11_parse_elems - Parse information elements in management frames
  * @start: Pointer to the start of IEs
