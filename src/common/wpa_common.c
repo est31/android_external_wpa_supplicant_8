@@ -52,11 +52,8 @@ unsigned int wpa_mic_len(int akmp)
 int wpa_use_akm_defined(int akmp)
 {
 	return akmp == WPA_KEY_MGMT_OSEN ||
-		akmp == WPA_KEY_MGMT_OWE ||
-		akmp == WPA_KEY_MGMT_DPP ||
 		wpa_key_mgmt_sae(akmp) ||
-		wpa_key_mgmt_suite_b(akmp) ||
-		wpa_key_mgmt_fils(akmp);
+		wpa_key_mgmt_suite_b(akmp);
 }
 
 
@@ -68,8 +65,6 @@ int wpa_use_akm_defined(int akmp)
 int wpa_use_cmac(int akmp)
 {
 	return akmp == WPA_KEY_MGMT_OSEN ||
-		akmp == WPA_KEY_MGMT_OWE ||
-		akmp == WPA_KEY_MGMT_DPP ||
 		wpa_key_mgmt_ft(akmp) ||
 		wpa_key_mgmt_sha256(akmp) ||
 		wpa_key_mgmt_sae(akmp) ||
@@ -89,8 +84,6 @@ int wpa_use_cmac(int akmp)
 int wpa_use_aes_key_wrap(int akmp)
 {
 	return akmp == WPA_KEY_MGMT_OSEN ||
-		akmp == WPA_KEY_MGMT_OWE ||
-		akmp == WPA_KEY_MGMT_DPP ||
 		wpa_key_mgmt_ft(akmp) ||
 		wpa_key_mgmt_sha256(akmp) ||
 		wpa_key_mgmt_sae(akmp) ||
