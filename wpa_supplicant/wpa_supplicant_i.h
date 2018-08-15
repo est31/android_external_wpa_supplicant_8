@@ -756,8 +756,6 @@ struct wpa_supplicant {
 		struct wpabuf *sae_token;
 		int sae_group_index;
 		unsigned int sae_pmksa_caching:1;
-		u16 seq_num;
-		struct external_auth ext_auth;
 #endif /* CONFIG_SAE */
 	} sme;
 #endif /* CONFIG_SME */
