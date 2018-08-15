@@ -1130,7 +1130,7 @@ int wpa_supplicant_set_suites(struct wpa_supplicant *wpa_s,
 				wpa_dbg(wpa_s, MSG_DEBUG,
 					"Could not parse WPA element");
 			} else {
-				wpa_dbg(wpa_s, MSG_DEBUG,
+				wpa_msg(wpa_s, MSG_INFO,
 					"WPA: pairwise_cipher=0x%x group_cipher=0x%x key_mgmt=0x%x",
 					ie.pairwise_cipher, ie.group_cipher,
 					ie.key_mgmt);
@@ -1160,7 +1160,7 @@ int wpa_supplicant_set_suites(struct wpa_supplicant *wpa_s,
 			proto = ie.proto;
 	}
 
-	wpa_dbg(wpa_s, MSG_DEBUG, "WPA: Selected cipher suites: group %d "
+	wpa_msg(wpa_s, MSG_INFO, "WPA: Selected cipher suites: group %d "
 		"pairwise %d key_mgmt %d proto %d",
 		ie.group_cipher, ie.pairwise_cipher, ie.key_mgmt, proto);
 #ifdef CONFIG_IEEE80211W
@@ -1237,7 +1237,7 @@ int wpa_supplicant_set_suites(struct wpa_supplicant *wpa_s,
 #ifdef CONFIG_SAE
 	} else if (sel & WPA_KEY_MGMT_SAE) {
 		wpa_s->key_mgmt = WPA_KEY_MGMT_SAE;
-		wpa_dbg(wpa_s, MSG_DEBUG, "RSN: using KEY_MGMT SAE");
+		wpa_msg(wpa_s, MSG_INFO, "RSN: using KEY_MGMT SAE");
 	} else if (sel & WPA_KEY_MGMT_FT_SAE) {
 		wpa_s->key_mgmt = WPA_KEY_MGMT_FT_SAE;
 		wpa_dbg(wpa_s, MSG_DEBUG, "RSN: using KEY_MGMT FT/SAE");
@@ -1257,7 +1257,7 @@ int wpa_supplicant_set_suites(struct wpa_supplicant *wpa_s,
 		wpa_dbg(wpa_s, MSG_DEBUG, "WPA: using KEY_MGMT 802.1X");
 	} else if (sel & WPA_KEY_MGMT_PSK) {
 		wpa_s->key_mgmt = WPA_KEY_MGMT_PSK;
-		wpa_dbg(wpa_s, MSG_DEBUG, "WPA: using KEY_MGMT WPA-PSK");
+		wpa_msg(wpa_s, MSG_INFO, "WPA: using KEY_MGMT WPA-PSK");
 	} else if (sel & WPA_KEY_MGMT_WPA_NONE) {
 		wpa_s->key_mgmt = WPA_KEY_MGMT_WPA_NONE;
 		wpa_dbg(wpa_s, MSG_DEBUG, "WPA: using KEY_MGMT WPA-NONE");
@@ -2182,10 +2182,10 @@ static void wpas_start_assoc_cb(struct wpa_radio_work *work, int deinit)
 		}
 	}
 #endif /* IEEE8021X_EAPOL */
-	wpa_dbg(wpa_s, MSG_DEBUG, "Automatic auth_alg selection: 0x%x", algs);
+	wpa_msg(wpa_s, MSG_INFO, "Automatic auth_alg selection: 0x%x", algs);
 	if (ssid->auth_alg) {
 		algs = ssid->auth_alg;
-		wpa_dbg(wpa_s, MSG_DEBUG, "Overriding auth_alg selection: "
+		wpa_msg(wpa_s, MSG_INFO, "Overriding auth_alg selection: "
 			"0x%x", algs);
 	}
 

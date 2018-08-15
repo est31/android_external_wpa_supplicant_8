@@ -274,14 +274,14 @@ static void sme_send_authentication(struct wpa_supplicant *wpa_s,
 
 		rsn = wpa_bss_get_ie(bss, WLAN_EID_RSN);
 		if (!rsn) {
-			wpa_dbg(wpa_s, MSG_DEBUG,
+			wpa_msg(wpa_s, MSG_INFO,
 				"SAE enabled, but target BSS does not advertise RSN");
 		} else if (wpa_parse_wpa_ie(rsn, 2 + rsn[1], &ied) == 0 &&
 			   wpa_key_mgmt_sae(ied.key_mgmt)) {
 			wpa_dbg(wpa_s, MSG_DEBUG, "Using SAE auth_alg");
 			params.auth_alg = WPA_AUTH_ALG_SAE;
 		} else {
-			wpa_dbg(wpa_s, MSG_DEBUG,
+			wpa_msg(wpa_s, MSG_INFO,
 				"SAE enabled, but target BSS does not advertise SAE AKM for RSN");
 		}
 	}
@@ -530,7 +530,7 @@ static void sme_send_authentication(struct wpa_supplicant *wpa_s,
 #ifdef CONFIG_SAE
 	if (!skip_auth && params.auth_alg == WPA_AUTH_ALG_SAE &&
 	    pmksa_cache_set_current(wpa_s->wpa, NULL, bss->bssid, ssid, 0, WPA_KEY_MGMT_SAE) == 0) {
-		wpa_dbg(wpa_s, MSG_DEBUG,
+		wpa_msg(wpa_s, MSG_INFO,
 			"PMKSA cache entry found - try to use PMKSA caching instead of new SAE authentication");
 		wpa_sm_set_pmk_from_pmksa(wpa_s->wpa);
 		params.auth_alg = WPA_AUTH_ALG_OPEN;
@@ -866,7 +866,7 @@ void sme_event_auth(struct wpa_supplicant *wpa_s, union wpa_event_data *data)
 		if (res != 1)
 			return;
 
-		wpa_printf(MSG_DEBUG, "SME: SAE completed - setting PMK for "
+		wpa_printf(MSG_INFO, "SME: SAE completed - setting PMK for "
 			   "4-way handshake");
 		wpa_sm_set_pmk(wpa_s->wpa, wpa_s->sme.sae.pmk, PMK_LEN,
 			       wpa_s->sme.sae.pmkid, wpa_s->pending_bssid);
