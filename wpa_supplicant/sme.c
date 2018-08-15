@@ -87,8 +87,13 @@ static struct wpabuf * sme_auth_build_sae_commit(struct wpa_supplicant *wpa_s,
 {
 	struct wpabuf *buf;
 	size_t len;
+	const char *password;
 
-	if (ssid->passphrase == NULL) {
+	password = ssid->sae_password;
+	if (!password)
+		password = ssid->passphrase;
+
+	if (!password) {
 		wpa_printf(MSG_DEBUG, "SAE: No password available");
 		return NULL;
 	}
@@ -754,7 +759,7 @@ static int sme_sae_auth(struct wpa_supplicant *wpa_s, u16 auth_transaction,
 
 	if (auth_transaction == 1 &&
 	    status_code == WLAN_STATUS_UNKNOWN_PASSWORD_IDENTIFIER) {
-		const u8 *bssid = sa ? sa : wpa_s->pending_bssid;
+		const u8 *bssid = wpa_s->pending_bssid;
 
 		wpa_msg(wpa_s, MSG_INFO,
 			WPA_EVENT_SAE_UNKNOWN_PASSWORD_IDENTIFIER MACSTR,
