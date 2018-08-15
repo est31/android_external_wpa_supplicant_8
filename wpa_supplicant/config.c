@@ -676,7 +676,7 @@ static int wpa_config_parse_key_mgmt(const struct parse_data *data,
 		last = *end == '\0';
 		*end = '\0';
 		if (os_strcmp(start, "WPA-PSK") == 0)
-			val |= WPA_KEY_MGMT_PSK;
+			val |= WPA_KEY_MGMT_PSK | WPA_KEY_MGMT_SAE;
 		else if (os_strcmp(start, "WPA-EAP") == 0)
 			val |= WPA_KEY_MGMT_IEEE8021X;
 		else if (os_strcmp(start, "IEEE8021X") == 0)
@@ -693,7 +693,7 @@ static int wpa_config_parse_key_mgmt(const struct parse_data *data,
 #endif /* CONFIG_IEEE80211R */
 #ifdef CONFIG_IEEE80211W
 		else if (os_strcmp(start, "WPA-PSK-SHA256") == 0)
-			val |= WPA_KEY_MGMT_PSK_SHA256;
+			val |= WPA_KEY_MGMT_PSK_SHA256 | WPA_KEY_MGMT_SAE;
 		else if (os_strcmp(start, "WPA-EAP-SHA256") == 0)
 			val |= WPA_KEY_MGMT_IEEE8021X_SHA256;
 #endif /* CONFIG_IEEE80211W */
