@@ -368,6 +368,7 @@ static void wiphy_info_feature_flags(struct wiphy_info_data *info,
 		return;
 
 	flags = nla_get_u32(tb);
+	wpa_printf(MSG_INFO, "flags is 0x%x", flags);
 
 	if (flags & NL80211_FEATURE_SK_TX_STATUS)
 		info->data_tx_status = 1;
