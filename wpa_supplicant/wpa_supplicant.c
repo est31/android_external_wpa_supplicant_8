@@ -1209,10 +1209,13 @@ int wpa_supplicant_set_suites(struct wpa_supplicant *wpa_s,
 #endif /* CONFIG_NO_WPA */
 
 	sel = ie.key_mgmt & ssid->key_mgmt;
+	wpa_msg(wpa_s, MSG_INFO, "WPA: combined key_mgmt 0x%x", sel);
 #ifdef CONFIG_SAE
 	if (!(wpa_s->drv_flags & WPA_DRIVER_FLAGS_SAE))
+		wpa_msg(wpa_s, MSG_INFO, "WPA: no SAE support in driver");
 		sel &= ~(WPA_KEY_MGMT_SAE | WPA_KEY_MGMT_FT_SAE);
 #endif /* CONFIG_SAE */
+	wpa_msg(wpa_s, MSG_INFO, "WPA: used key_mgmt 0x%x", sel);
 	if (0) {
 #ifdef CONFIG_SUITEB192
 	} else if (sel & WPA_KEY_MGMT_IEEE8021X_SUITE_B_192) {
